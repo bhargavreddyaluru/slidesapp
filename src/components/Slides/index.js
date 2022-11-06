@@ -9,8 +9,7 @@ class Slides extends Component {
     return (
       <SliderContext.Consumer>
         {value => {
-          const {activeTab, initialList} = value
-          console.log(initialList)
+          const {initialList} = value
           return (
             <div className="slides-container">
               <ol className="slides-list">
@@ -19,7 +18,6 @@ class Slides extends Component {
                     details={eachSlide}
                     key={eachSlide.id}
                     serialNumber={index + 1}
-                    isActive={activeTab === eachSlide.id}
                   />
                 ))}
               </ol>

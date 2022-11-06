@@ -15,7 +15,7 @@ const NewButton = () => (
           description: 'Description',
         }
         addNewItem(item)
-        changeActiveTab(id, activeIndex + 1)
+        changeActiveTab(activeIndex + 1)
       }
 
       const onDoubleClickBtn = () => {

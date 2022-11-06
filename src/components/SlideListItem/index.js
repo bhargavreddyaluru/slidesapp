@@ -4,16 +4,18 @@ import SliderContext from '../../Context'
 
 class SlideListItem extends Component {
   render() {
-    const {details, serialNumber, isActive} = this.props
-    const {heading, description, id} = details
-    const activeStyling = isActive ? 'active-styling' : null
+    const {details, serialNumber} = this.props
+    const {heading, description} = details
+
     return (
       <SliderContext.Consumer>
         {value => {
-          const {changeActiveTab} = value
+          const {changeActiveTab, activeIndex} = value
+          const isActive = activeIndex === serialNumber - 1
+          const activeStyling = isActive ? 'active-styling' : ''
 
           const onClickSlideTab = () => {
-            changeActiveTab(id, serialNumber - 1)
+            changeActiveTab(serialNumber - 1)
           }
 
           return (

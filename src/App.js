@@ -5,7 +5,7 @@ import NewButton from './components/NewButton'
 import Slides from './components/Slides'
 
 import SlideContext from './Context'
-// This is the list used in the application. You can move them to any component needed.
+
 const initialSlidesList = [
   {
     id: 'cc6e1752-a063-11ec-b909-0242ac120002',
@@ -44,12 +44,17 @@ const initialSlidesList = [
   },
 ]
 
+const insert = (arr, index, newItem) => [
+  ...arr.slice(0, index),
+  newItem,
+  ...arr.slice(index),
+]
+
 // Replace your code here
 
 class App extends Component {
   state = {
     initialList: initialSlidesList,
-    activeTab: initialSlidesList[0].id,
     activeIndex: 0,
   }
 
@@ -81,39 +86,41 @@ class App extends Component {
     })
   }
 
-  changeActiveTab = (id, index) => {
-    this.setState({activeTab: id, activeIndex: index})
+  changeActiveTab = index => {
+    this.setState({activeIndex: index})
   }
 
   addNewItem = item => {
     const {activeIndex} = this.state
     this.setState(prevState => {
       const {initialList} = prevState
-      initialList.splice(activeIndex + 1, 0, item)
-      return {initialList: [...initialList]}
+      const newList = insert(initialList, activeIndex + 1, item)
+      return {initialList: [...newList]}
     })
   }
 
   render() {
-    const {initialList, activeTab, activeIndex} = this.state
+    const {initialList, activeIndex} = this.state
+    console.log(activeIndex)
     return (
-      <SlideContext.Provider
-        value={{
-          initialList,
-          activeTab,
-          activeIndex,
-          changeActiveTab: this.changeActiveTab,
-          addNewItem: this.addNewItem,
-          changeHeading: this.changeHeading,
-          ChangeDescription: this.ChangeDescription,
-        }}
-      >
-        <div>
-          <Header />
-          <NewButton />
-          <Slides />
-        </div>
-      </SlideContext.Provider>
+      <div>
+        <Header />
+        <SlideContext.Provider
+          value={{
+            initialList,
+            activeIndex,
+            changeActiveTab: this.changeActiveTab,
+            addNewItem: this.addNewItem,
+            changeHeading: this.changeHeading,
+            ChangeDescription: this.ChangeDescription,
+          }}
+        >
+          <>
+            <NewButton />
+            <Slides />
+          </>
+        </SlideContext.Provider>
+      </div>
     )
   }
 }
