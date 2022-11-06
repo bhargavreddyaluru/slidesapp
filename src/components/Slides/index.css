@@ -1,0 +1,10 @@
+.slides-container {
+  display: flex;
+  height: 80vh;
+}
+.slides-list {
+  width: 22%;
+  overflow: auto;
+  background-color: #f8fafc;
+  padding-left: 0;
+}
